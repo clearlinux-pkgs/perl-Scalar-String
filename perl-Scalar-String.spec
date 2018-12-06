@@ -4,7 +4,7 @@
 #
 Name     : perl-Scalar-String
 Version  : 0.003
-Release  : 7
+Release  : 8
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libscalar-string-perl/libscalar-string-perl_0.003-1.debian.tar.xz
