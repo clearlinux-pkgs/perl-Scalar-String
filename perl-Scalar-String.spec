@@ -4,15 +4,14 @@
 #
 Name     : perl-Scalar-String
 Version  : 0.003
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libscalar-string-perl/libscalar-string-perl_0.003-1.debian.tar.xz
 Summary  : 'string aspects of scalars'
 Group    : Development/Tools
-License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
-Requires: perl-Scalar-String-lib = %{version}-%{release}
-Requires: perl-Scalar-String-license = %{version}-%{release}
+License  : Artistic-1.0-Perl
+Requires: perl-Scalar-String-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -29,42 +28,35 @@ implementation details.
 %package dev
 Summary: dev components for the perl-Scalar-String package.
 Group: Development
-Requires: perl-Scalar-String-lib = %{version}-%{release}
 Provides: perl-Scalar-String-devel = %{version}-%{release}
+Requires: perl-Scalar-String = %{version}-%{release}
 
 %description dev
 dev components for the perl-Scalar-String package.
 
 
-%package lib
-Summary: lib components for the perl-Scalar-String package.
-Group: Libraries
-Requires: perl-Scalar-String-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-Scalar-String package.
-
-
-%package license
-Summary: license components for the perl-Scalar-String package.
+%package perl
+Summary: perl components for the perl-Scalar-String package.
 Group: Default
+Requires: perl-Scalar-String = %{version}-%{release}
 
-%description license
-license components for the perl-Scalar-String package.
+%description perl
+perl components for the perl-Scalar-String package.
 
 
 %prep
 %setup -q -n Scalar-String-0.003
-cd ..
-%setup -q -T -D -n Scalar-String-0.003 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libscalar-string-perl_0.003-1.debian.tar.xz
+cd %{_builddir}/Scalar-String-0.003
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Scalar-String-0.003/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Scalar-String-0.003/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -75,8 +67,6 @@ fi
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/package-licenses/perl-Scalar-String
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Scalar-String/deblicense_copyright
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -89,16 +79,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Scalar/String.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Scalar::String.3
 
-%files lib
+%files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Scalar/String/String.so
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Scalar-String/deblicense_copyright
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Scalar/String.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Scalar/String/String.so
