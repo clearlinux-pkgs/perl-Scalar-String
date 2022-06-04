@@ -4,7 +4,7 @@
 #
 Name     : perl-Scalar-String
 Version  : 0.003
-Release  : 19
+Release  : 20
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Scalar-String-0.003.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libs/libscalar-string-perl/libscalar-string-perl_0.003-1.debian.tar.xz
@@ -86,5 +86,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.34.0/x86_64-linux-thread-multi/Scalar/String.pm
-/usr/lib/perl5/vendor_perl/5.34.0/x86_64-linux-thread-multi/auto/Scalar/String/String.so
+/usr/lib/perl5/*
